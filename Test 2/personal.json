@@ -1,0 +1,36 @@
+{
+    "Personal": "DP World",
+    "active": true,
+    "members": [
+      {
+        "name": "Martin Müller",
+        "age": 29,
+        "telefonnummer": "0715 5678900",
+        "adresse": [
+          "Richterstraße 13",
+          "0711",
+          "Stuttgart"
+        ]
+      },
+      {
+        "name": "Chris Schurr",
+        "age": 29,
+        "telefonnummer": "0156 89765424",
+        "adresse": [
+          "Hermannstraße 13",
+          "0711",
+          "Stuttgart"
+        ]
+      },
+      {
+        "name": "Kai Maurer",
+        "age": 29,
+        "telefonnummer": "0156 8990000",
+        "adresse": [
+          "Kornstraße 45",
+          "0711",
+          "Stuttgart"
+        ]
+      }
+    ]
+  }
