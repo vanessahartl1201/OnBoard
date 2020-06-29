@@ -35,11 +35,16 @@ const { Board, Sensor } = require("johnny-five");
     });
     //Mit Arduino verbinden
     board.on("ready", () => {
-      const potentiometer = new Sensor("A3");
-      potentiometer.on("change", () => {
-        const {value, raw} = potentiometer;
+      const potentiometer1 = new Sensor("A2");
+      const potentiometer2 = new Sensor("A3");
+    
+      potentiometer1.on("change", () => {
+        const {value, raw} = potentiometer1;
+        const lastIndex = Math.round(potentiometer1.scaleTo([0, 1023]));
+
         io.emit('pot1', value);
-        console.log("Sensor: ");
+        
+        console.log("Sensor1: ");
         console.log("  value  : ", value);
         console.log("  raw    : ", raw);
         console.log("-----------------");
@@ -48,8 +53,60 @@ const { Board, Sensor } = require("johnny-five");
           if (err) {cd
               console.log(err);
           } else {
-              console.log("1 document inserted");
+              console.log(" ");
           }
+            
+
+          sleep(2000);
+
         });
+
+        potentiometer2.on("change", () => {
+          const {value2, raw2} = potentiometer2;
+          const lastIndex2 = Math.round(potentiometer2.scaleTo([0, 1023]));
+  
+          io.emit('pot2', value2);
+         
+          console.log("Sensor: ");
+         console.log("  value  : ", value2);
+          console.log("  raw    : ", raw2);
+          console.log("-----------------");
+          var dataobj = { potNr: 2, potValue2: value2, timestamp: Date.now() };
+          dbo.collection("Schiffsdaten").insertOne(dataobj, function(err, res) {
+            if (err) {cd
+                console.log(err);
+            } else {
+                console.log(" ");
+            }
+            sleep(2000);
+            
+          });
+         
+        if (lastIndex > 500) {
+          console.log("Schiff 1");
+          sleep(2000);
+
+        } else {
+          console.log("nothing");
+            }
+
+       if (lastIndex2 > 500) {
+              console.log("Schiff 2");
+              sleep(2000);
+  
+        } else {
+          console.log("nothing");
+                }
+
+        
       });
+     });
     });
+  
+    function sleep(milliseconds) {
+      const date = Date.now();
+      let currentDate = null;
+      do {
+        currentDate = Date.now();
+      } while (currentDate - date < milliseconds);
+    }
